@@ -30,7 +30,7 @@ train = [
 ]
 v = DictVectorizer()
 X = v.fit_transform(train)
-print X.toarray()
+print(X.toarray())
 [[ 19.   0.   0.   0.   1.   1.   0.   0.   0.]
  [ 33.   0.   0.   1.   0.   0.   1.   0.   0.]
  [ 55.   0.   1.   0.   0.   0.   0.   1.   0.]
