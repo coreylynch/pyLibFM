@@ -1,7 +1,9 @@
+import random
+
 import numpy as np
 from sklearn import cross_validation
-import random
-from pyfm_fast import FM_fast, CSRDataset
+
+from pyfm_fast import CSRDataset, FM_fast
 
 LEARNING_RATE_TYPES = {"optimal": 0, "invscaling": 1, "constant": 2}
 TASKS = {"regression": 0, "classification" : 1}
@@ -238,4 +240,3 @@ def _make_dataset(X, y_i):
     sample_weight = np.ones(X.shape[0], dtype=np.float64, order='C') # ignore sample weight for the moment
     dataset = CSRDataset(X.data, X.indptr, X.indices, y_i, sample_weight)
     return dataset
-
