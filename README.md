@@ -102,7 +102,7 @@ Training RMSE: 0.43527
 # Evaluate
 preds = fm.predict(X_test)
 from sklearn.metrics import mean_squared_error
-print "FM RMSE: %.4f" % mean_squared_error(y_test,preds)
+print("FM RMSE: %.4f" % mean_squared_error(y_test,preds))
 FM RMSE: 0.9253
 
 ```
