@@ -223,6 +223,11 @@ cdef class FM_fast(object):
         self.sum = sum_
         return result
 
+    cdef _scale_sigmoid(self, DOUBLE p):
+        if self.task == CLASSIFICATION:
+            p = 1.0 / (1.0 + exp(-p))
+        return p
+
     cdef _scale_prediction(self, DOUBLE p):
 
         if self.task == REGRESSION:
@@ -247,7 +252,7 @@ cdef class FM_fast(object):
         for i in range(n_samples):
             dataset.next(& x_data_ptr, & x_ind_ptr, & xnnz, & y_placeholder,
                          & sample_weight)
-            p = self._scale_prediction(self._predict_instance(x_data_ptr, x_ind_ptr, xnnz))
+            p = self._scale_sigmoid(self._predict_instance(x_data_ptr, x_ind_ptr, xnnz))
             return_preds[i] = p
         return return_preds
     
