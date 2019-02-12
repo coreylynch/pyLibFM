@@ -485,7 +485,7 @@ cdef class CSRDataset:
     cdef INTEGER *feature_indices_ptr
     cdef np.ndarray index
     cdef INTEGER *index_data_ptr
-    cdef DOUBLE *sample_weight_data
+    cdef DOUBLE [:] sample_weight_data
 
     def __cinit__(self, np.ndarray[DOUBLE, ndim=1, mode='c'] X_data,
                   np.ndarray[INTEGER, ndim=1, mode='c'] X_indptr,
@@ -522,7 +522,7 @@ cdef class CSRDataset:
         self.X_indptr_ptr = <INTEGER *>X_indptr.data
         self.X_indices_ptr = <INTEGER *>X_indices.data
         self.Y_data_ptr = <DOUBLE *>Y.data
-        self.sample_weight_data = <DOUBLE *> sample_weight.data
+        self.sample_weight_data = sample_weight
         # Use index array for fast shuffling
         cdef np.ndarray[INTEGER, ndim=1,
                         mode='c'] index = np.arange(0, self.n_samples,
