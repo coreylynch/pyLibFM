@@ -174,7 +174,7 @@ class FM:
         if self.verbose == True:
             print("Creating validation dataset of %.2f of training for adaptive regularization" % self.validation_size)
         X_train, validation, train_labels, validation_labels = train_test_split(
-            X, y, test_size=self.validation_size)
+            X, y, test_size=self.validation_size, random_state=self.seed)
         self.num_attribute = X_train.shape[1]
 
         # Convert datasets to sklearn sequential datasets for fast traversal
