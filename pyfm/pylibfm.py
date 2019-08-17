@@ -48,6 +48,12 @@ class FM:
         Whether or not to shuffle training dataset before learning
     seed : int
         The seed of the pseudo random number generator
+    reg_0 : float
+        The regularization parameter of w0
+    reg_w : float
+        The regularization parameter of w
+    reg_v : float
+        The regularization parameter of each element in v
     """
     def __init__(self,
                  num_factors=10,
@@ -63,7 +69,11 @@ class FM:
                  task='classification',
                  verbose=True,
                  shuffle_training=True,
-                 seed = 28):
+                 seed = 28,
+                 reg_0 = 0.0,
+                 reg_w = 0.0,
+                 reg_v = 0.0,
+                 ):
 
         self.num_factors = num_factors
         self.num_iter = num_iter
@@ -86,9 +96,9 @@ class FM:
         self.t0 = t0
 
         # Regularization Parameters (start with no regularization)
-        self.reg_0 = 0.0
-        self.reg_w = 0.0
-        self.reg_v = np.repeat(0.0, num_factors)
+        self.reg_0 = float(reg_0)
+        self.reg_w = float(reg_w)
+        self.reg_v = np.repeat(float(reg_v), num_factors)
 
         # local parameters in the lambda_update step
         self.lambda_w_grad = 0.0
@@ -205,7 +215,11 @@ class FM:
                                shuffle_training,
                                task,
                                self.seed,
-                               verbose)
+                               verbose,
+                               self.reg_0,
+                               self.reg_w,
+                               self.reg_v,
+                               )
 
         return self.fm_fast.fit(X_train_dataset, validation_dataset)
 

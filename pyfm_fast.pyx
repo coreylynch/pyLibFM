@@ -51,6 +51,9 @@ cdef class FM_fast(object):
     task : int
     seed : int
     verbose : int
+    reg_0 : double
+    reg_w : double
+    reg_v : np.ndarray[DOUBLE, ndim=1, mode='c']
     """
 
     cdef public double w0
@@ -106,7 +109,11 @@ cdef class FM_fast(object):
                   int shuffle_training,
                   int task,
                   int seed,
-                  int verbose):
+                  int verbose,
+                  double reg_0,
+                  double reg_w,
+                  np.ndarray[DOUBLE, ndim=1, mode='c'] reg_v,
+                  ):
 
         self.w0 = w0
         self.w = w
@@ -130,9 +137,9 @@ cdef class FM_fast(object):
         self.seed = seed
         self.verbose = verbose
 
-        self.reg_0 = 0.0
-        self.reg_w = 0.0
-        self.reg_v = np.zeros(self.num_factors)
+        self.reg_0 = reg_0
+        self.reg_w = reg_w
+        self.reg_v = reg_v
 
         self.sumloss = 0.0
         self.count = 0
