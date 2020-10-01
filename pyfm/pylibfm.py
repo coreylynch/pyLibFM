@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import random
 from pyfm_fast import FM_fast, CSRDataset
-
+from collections import defaultdict
 LEARNING_RATE_TYPES = {"optimal": 0, "invscaling": 1, "constant": 2}
 TASKS = {"regression": 0, "classification" : 1}
 
@@ -129,6 +129,8 @@ class FM:
             return 1
         else:
             return 0
+    def fact(n):
+        return n*n
 
     def _prepare_y(self,y):
         """Maps labels to [-1, 1] space"""
